@@ -7,6 +7,7 @@ const initialState = {
     token: "",
     user: null,
     user_id: null,
+    userType: "",
     isLoading: false,
     email: "",
     error: false,
@@ -23,6 +24,7 @@ const slice = createSlice({
         logIn(state, action){
             state.isLoggedIn = action.payload.isLoggedIn;
             state.token = action.payload.token;
+            state.userType = action.payload.userType;
         },
         signOut(state, action){
             state.isLoggedIn = false;
@@ -54,6 +56,7 @@ export function LoginUser(formValues){
             dispatch(slice.actions.logIn({
                 isLoggedIn: true,
                 token: response.data.token,
+                userType: response.data.userType,
             }));
 
             window.localStorage.setItem("user_id", response.data.user_id);

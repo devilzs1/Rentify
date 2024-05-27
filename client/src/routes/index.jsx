@@ -3,6 +3,7 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 // layouts
 import AuthLayout from "../layouts/auth";
+import MainLayout from "../layouts/main";
 
 // config
 import { DEFAULT_PATH } from "../config";
@@ -29,24 +30,21 @@ export default function Router() {
         { path: "verify-otp", element: <VerifyPage /> },
       ],
     },
-    // {
-    //   path: "/",
-    //   element: <DashboardLayout />,
-    //   children: [
-    //     { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
-    //     { path: "app", element: <GeneralApp /> },
-    //     { path: "settings", element: <Settings /> },
-    //     { path: "group", element: <GroupPage /> },
-    //     { path: "call", element: <CallPage /> },
-    //     { path: "profile", element: <ProfilePage /> },
+    {
+      path: "/",
+      element: <MainLayout />,
+      children: [
+        { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
+        { path: "home", element: <HomePage /> },
 
-    //     { path: "404", element: <Page404 /> },
-    //     { path: "*", element: <Navigate to="/404" replace /> },
-    //   ],
-    // },
+        { path: "404", element: <Page404 /> },
+        { path: "*", element: <Navigate to="/404" replace /> },
+      ],
+    },
     { path: "*", element: <Navigate to="/404" replace /> },
   ]);
 }
+
 
 const LoginPage = Loadable(lazy(() => import("../pages/auth/Login")));
 const RegisterPage = Loadable(lazy(() => import("../pages/auth/Register")));
@@ -57,5 +55,7 @@ const NewPasswordPage = Loadable(
   lazy(() => import("../pages/auth/NewPassword"))
 );
 const VerifyPage = Loadable(lazy(() => import("../pages/auth/Verify")));
+
+const HomePage = Loadable(lazy(() => import("../pages/main/Home")))
 
 const Page404 = Loadable(lazy(() => import("../pages/Page404")));
